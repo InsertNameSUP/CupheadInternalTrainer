@@ -60,9 +60,9 @@ void SmallPlayer() {
 	}
 	else {
 		if (isSmallPlayerEnabled) {
-			DWORD_PTR* playerX = (DWORD_PTR*)(*playerUnityObject + (int)UnityPlayerOffsets::ScaleX);
-			DWORD_PTR* playerY = (DWORD_PTR*)(*playerUnityObject + (int)UnityPlayerOffsets::ScaleY);
-			*playerX = (float)0.5; // Setting value to 0 in game? Fix Soon: Most likely due to cast from float to DWORD or playerX being a DWORD to begin with?
+			float* playerX = (float*)(*playerUnityObject + (int)UnityPlayerOffsets::ScaleX);
+			float* playerY = (float*)(*playerUnityObject + (int)UnityPlayerOffsets::ScaleY);
+			*playerX = (float)0.5;
 			*playerY = (float)0.5;
 			
 		}
