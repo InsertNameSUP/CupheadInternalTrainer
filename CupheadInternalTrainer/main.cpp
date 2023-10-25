@@ -3,17 +3,10 @@
 #include <vector>
 #include "MemoryManipulation.h"
 
-MemoryManipulation MemoryManipulator;
+static MemoryManipulation MemoryManipulator;
 bool isInfiniteHealthEnabled = false;
 bool isSmallPlayerEnabled = false;
 DWORD_PTR* playerUnityObject = nullptr;
-static struct UnityPlayerOffsets
-{
-	static const int PosX = 0x90;
-	static const int PosY = 0x94;
-	static const int ScaleX = 0xE0;
-	static const int ScaleY = 0xE4;
-};
 DWORD_PTR* health = nullptr;
 
 
@@ -43,8 +36,8 @@ void SmallPlayer() {
 	}
 	else {
 		if (isSmallPlayerEnabled) {
-			float* playerX = (float*)(*playerUnityObject + (int)UnityPlayerOffsets::ScaleX);
-			float* playerY = (float*)(*playerUnityObject + (int)UnityPlayerOffsets::ScaleY);
+			float* playerX = (float*)(*playerUnityObject + (int)MemoryManipulation::UnityPlayerOffsets::ScaleX);
+			float* playerY = (float*)(*playerUnityObject + (int)MemoryManipulation::UnityPlayerOffsets::ScaleY);
 			*playerX = (float)0.5;
 			*playerY = (float)0.5;
 			
