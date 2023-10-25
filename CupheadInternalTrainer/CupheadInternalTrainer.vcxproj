@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MemoryManipulation.cpp" />
+    <ClCompile Include="PlayerHacks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MemoryManipulation.h" />
+    <ClInclude Include="PlayerHacks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

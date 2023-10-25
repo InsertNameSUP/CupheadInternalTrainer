@@ -2,53 +2,12 @@
 #include <iostream>
 #include <vector>
 #include "MemoryManipulation.h"
-
-static MemoryManipulation MemoryManipulator;
-bool isInfiniteHealthEnabled = false;
-bool isSmallPlayerEnabled = false;
-DWORD_PTR* playerUnityObject = nullptr;
-DWORD_PTR* health = nullptr;
-
-
-float playerPosX;
-float playerPosY;
-
-void InfiniteHealth() {
-	if (GetAsyncKeyState('P') & 1) {
-		isInfiniteHealthEnabled = !isInfiniteHealthEnabled;
-		Sleep(100);
-	}
-	if(health == NULL) { health = MemoryManipulator.GetAddress(MemoryManipulator.cupheadModuleAddress, MemoryManipulator.healthOffset); }
-	if (isInfiniteHealthEnabled) {
-			if (*health < 3) *health = 3;
-	}
-
-	return;
-}
-void SmallPlayer() {
-	if (GetAsyncKeyState('O') & 1) {
-		isSmallPlayerEnabled = !isSmallPlayerEnabled;
-		Sleep(100);
-	}
-	if (playerUnityObject == NULL) { 
-		playerUnityObject = MemoryManipulator.GetAddress(MemoryManipulator.unityModuleAddress, MemoryManipulator.unityPlayerObjectOffset);
-		
-	}
-	else {
-		if (isSmallPlayerEnabled) {
-			float* playerX = (float*)(*playerUnityObject + (int)MemoryManipulation::UnityPlayerOffsets::ScaleX);
-			float* playerY = (float*)(*playerUnityObject + (int)MemoryManipulation::UnityPlayerOffsets::ScaleY);
-			*playerX = (float)0.5;
-			*playerY = (float)0.5;
-			
-		}
-		
-		
-	}
-
-}
+#include "PlayerHacks.h"
+extern MemoryManipulation MemoryManipulator;
+PlayerHacks playerHacks;
 void Trainer() {
 	MemoryManipulator = MemoryManipulation();
+	playerHacks = PlayerHacks(MemoryManipulator);
 	MessageBox(0, "injected", "injected", 0);
 	while (true) {
 		if (GetAsyncKeyState(VK_END)) {
@@ -57,8 +16,8 @@ void Trainer() {
 		}
 
 
-		InfiniteHealth();
-		SmallPlayer();
+		playerHacks.InfiniteHealth();
+		playerHacks.SmallPlayer();
 		Sleep(1);
 	}
 }
